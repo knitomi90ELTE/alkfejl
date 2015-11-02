@@ -1,0 +1,55 @@
+<div class="page-header">
+    <h1>Tárgy létrehozása</h1>
+</div>
+
+<form class="form-horizontal" method="post">
+    <fieldset>
+        <div class="form-group
+            {{#if validationErrors.subjectName}}
+                has-error
+            {{/if}}
+        ">
+            <label for="subjectName" class="col-lg-2 control-label">Tárgy neve</label>
+            <div class="col-lg-10">
+                <input class="form-control" id="subjectName" name="subjectName" placeholder="pl. Arab varázslás, Szexuálpszichológia" type="text" value="{{data.subjectName}}">
+                {{#if validationErrors.subjectName}}
+                    <span class="help-block">{{validationErrors.subjectName.msg}}</span>
+                {{/if}}
+            </div>
+        </div>
+        <div class="form-group
+            {{#if validationErrors.description}}
+                has-error
+            {{/if}}
+        ">
+            <label for="leiras" class="col-lg-2 control-label">Leírás</label>
+            <div class="col-lg-10">
+                <textarea class="form-control" rows="2" id="description" name="description">{{data.description}}</textarea>
+                <!--span class="help-block">Tárgy rövid leírása</span-->
+                {{#if validationErrors.description}}
+                    <span class="help-block">{{validationErrors.description.msg}}</span>
+                {{/if}}
+            </div>
+        </div>
+        <div class="form-group
+            {{#if validationErrors.room}}
+                has-error
+            {{/if}}
+        ">
+            <label for="room" class="col-lg-2 control-label">Terem</label>
+            <div class="col-lg-10">
+                <textarea class="form-control" rows="2" id="room" name="room">{{data.room}}</textarea>
+                <!--span class="help-block">Terem</span-->
+                {{#if validationErrors.room}}
+                    <span class="help-block">{{validationErrors.room.msg}}</span>
+                {{/if}}
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-10 col-lg-offset-2">
+                <button type="reset" class="btn btn-default">Cancel</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </fieldset>
+</form>        

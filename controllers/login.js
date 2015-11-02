@@ -9,7 +9,7 @@ router.get('/', function (req, res) {
 });
 
 router.post('/', passport.authenticate('local', {
-    successRedirect: '/errors/list',
+    successRedirect: '/subjects/list',
     failureRedirect: '/login',
     failureFlash: true,
     badRequestMessage: 'Hiányzó adatok'

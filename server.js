@@ -11,14 +11,16 @@ var Waterline = require('waterline');
 var waterlineConfig = require('./config/waterline');
 // ORM példány
 var orm = new Waterline();
-var errorCollection = require('./models/error');
+//var errorCollection = require('./models/error');
 var userCollection = require('./models/user');
-orm.loadCollection(Waterline.Collection.extend(errorCollection));
+var subjectCollection = require('./models/subject');
+//orm.loadCollection(Waterline.Collection.extend(errorCollection));
 orm.loadCollection(Waterline.Collection.extend(userCollection));
+orm.loadCollection(Waterline.Collection.extend(subjectCollection));
 
-var errorController = require('./controllers/error');
 var indexController = require('./controllers/index');
 var loginController = require('./controllers/login');
+var subjectController = require('./controllers/subject');
 var app = express();
 
 //config
@@ -51,15 +53,15 @@ var LocalStrategy = require('passport-local').Strategy;
 
 // Local Strategy for sign-up
 passport.use('local-signup', new LocalStrategy({
-        usernameField: 'neptun',
+        usernameField: 'mtra',
         passwordField: 'password',
         passReqToCallback: true,
     },
-    function(req, neptun, password, done) {
-        req.app.models.user.findOne({ neptun: neptun }, function(err, user) {
+    function(req, mtra, password, done) {
+        req.app.models.user.findOne({ mtra: mtra }, function(err, user) {
             if (err) { return done(err); }
             if (user) {
-                return done(null, false, { message: 'Létező neptun.' });
+                return done(null, false, { message: 'Létező MTR-azonosító.' });
             }
             req.app.models.user.create(req.body)
             .then(function (user) {
@@ -74,12 +76,12 @@ passport.use('local-signup', new LocalStrategy({
 
 // Stratégia
 passport.use('local', new LocalStrategy({
-        usernameField: 'neptun',
+        usernameField: 'mtra',
         passwordField: 'password',
         passReqToCallback: true,
     },
-    function(req, neptun, password, done) {
-        req.app.models.user.findOne({ neptun: neptun }, function(err, user) {
+    function(req, mtra, password, done) {
+        req.app.models.user.findOne({ mtra: mtra }, function(err, user) {
             if (err) { return done(err); }
             if (!user || !user.validPassword(password)) {
                 return done(null, false, { message: 'Helytelen adatok.' });
@@ -104,8 +106,9 @@ function ensureAuthenticated(req, res, next) {
 
 //endpoints
 app.use('/', indexController);
-app.use('/errors', ensureAuthenticated, errorController);
+app.use('/subjects', ensureAuthenticated, subjectController);
 app.use('/login', loginController);
+
 
 function andRestrictTo(role) {
     return function(req, res, next) {
@@ -116,8 +119,8 @@ function andRestrictTo(role) {
         }
     }
 }
-app.get('/operator', ensureAuthenticated, andRestrictTo('operator'), function(req, res) {
-    res.end('operator');
+app.get('/teacher', ensureAuthenticated, andRestrictTo('teacher'), function(req, res) {
+    res.end('teacher');
 });
 
 // ORM indítása

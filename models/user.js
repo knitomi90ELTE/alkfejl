@@ -4,7 +4,7 @@ module.exports = {
     identity: 'user',
     connection: 'default',
     attributes: {
-        neptun: {
+        mtra: {
             type: 'string',
             required: true,
             unique: true,
@@ -23,9 +23,9 @@ module.exports = {
         },
         role: {
             type: 'string',
-            //enum: ['student', 'teacher'],
+            enum: ['student', 'teacher'],
             required: true,
-            //defaultsTo: 'student'
+            defaultsTo: 'student'
         },
         subjects: {
             collection: 'subject',

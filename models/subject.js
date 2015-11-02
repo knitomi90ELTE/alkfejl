@@ -2,9 +2,15 @@ module.exports = {
     identity: 'subject',
     connection: 'default',
     attributes: {
-        name: {
+        subjectName: {
             type: 'string',
             required: true,
+        },
+        status: {
+            type: 'string',
+            enum: ['available', 'inavailable', 'passive'],
+            required: true,
+            defaultsTo: 'passive',
         },
         room: {
             type: 'string',
