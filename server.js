@@ -58,7 +58,9 @@ passport.use('local-signup', new LocalStrategy({
         passReqToCallback: true,
     },
     function(req, mtra, password, done) {
+        
         req.app.models.user.findOne({ mtra: mtra }, function(err, user) {
+            console.log("inside req fn");
             if (err) { return done(err); }
             if (user) {
                 return done(null, false, { message: 'Létező MTR-azonosító.' });

@@ -10,6 +10,36 @@
         "createdAt": "2015-11-02T13:06:03.460Z",
         "updatedAt": "2015-11-02T13:06:03.460Z",
         "id": 1
+      },
+      {
+        "surname": "a",
+        "forename": "a",
+        "mtra": "a",
+        "password": "$2a$10$xEXjdCwSe9AY8m515V0bpOSQQfAY7BcJFge/YWGa7hSrTd/CTWepC",
+        "role": "student",
+        "createdAt": "2015-11-02T14:04:25.275Z",
+        "updatedAt": "2015-11-02T14:04:25.275Z",
+        "id": 2
+      },
+      {
+        "surname": "Mr.",
+        "forename": "T.",
+        "mtra": "MRTFCK",
+        "password": "$2a$10$zGlE.BpDshKVk8rArPgG/ulKOMn9Owf3dnlRSdxgqrwaFf0itnoL6",
+        "role": "teacher",
+        "createdAt": "2015-11-02T14:07:18.670Z",
+        "updatedAt": "2015-11-02T14:07:18.670Z",
+        "id": 3
+      },
+      {
+        "surname": "Knizner",
+        "forename": "Tamás",
+        "mtra": "asdasd",
+        "password": "$2a$10$dmNNMkcwVWrgilFwN.4zd.T.HYJ5YL2MiA6Wxe1vjHYM8Ws1uCmgS",
+        "role": "student",
+        "createdAt": "2015-11-02T14:08:13.730Z",
+        "updatedAt": "2015-11-02T14:08:13.730Z",
+        "id": 4
       }
     ],
     "subject": []
@@ -91,7 +121,7 @@
   },
   "counters": {
     "user": {
-      "id": 1
+      "id": 4
     },
     "subject": {}
   }

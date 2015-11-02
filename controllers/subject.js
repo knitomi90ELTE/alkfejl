@@ -58,10 +58,14 @@ router.post('/new', function (req, res) {
     }
     else {
         // adatok elmentése (ld. később) és a hibalista megjelenítése
+        
+        console.log("cb: " + req.body.role);
+        
         req.app.models.subject.create({
             status: 'new',
             room: req.body.room,
-            description: req.body.description
+            description: req.body.description,
+            role: req.body.role,
         })
         .then(function (subject) {
             req.flash('info', 'Hiba sikeresen felvéve!');
