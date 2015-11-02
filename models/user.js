@@ -21,18 +21,14 @@ module.exports = {
             type: 'string',
             required: true,
         },
-        avatar: {
-            type: 'string',
-            url: true,
-        },
         role: {
             type: 'string',
-            enum: ['student', 'teacher'],
+            //enum: ['student', 'teacher'],
             required: true,
-            defaultsTo: 'student'
+            //defaultsTo: 'student'
         },
-        errors: {
-            collection: 'error',
+        subjects: {
+            collection: 'subject',
             via: 'user'
         },
         validPassword: function (password) {
