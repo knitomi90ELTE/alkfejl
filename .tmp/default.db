@@ -2,47 +2,48 @@
   "data": {
     "user": [
       {
-        "surname": "Knizner",
+        "surname": "Hallgató",
         "forename": "Tamás",
-        "mtra": "JP5RZF",
-        "password": "$2a$10$oTX/l4hvuhEWN8FuOqfO7.ULNu20hVRC.1QwQR2hfqz8U7teXPjjm",
+        "mtra": "QWEASD",
+        "password": "$2a$10$G8xsIdYqZGz5IgD6BmtEE.rnMmlW3TVmhCR.H7VU1FU9TZrKeWsbO",
         "role": "student",
-        "createdAt": "2015-11-02T13:06:03.460Z",
-        "updatedAt": "2015-11-02T13:06:03.460Z",
+        "createdAt": "2015-11-04T17:08:50.693Z",
+        "updatedAt": "2015-11-04T17:08:50.693Z",
         "id": 1
       },
       {
-        "surname": "a",
-        "forename": "a",
-        "mtra": "a",
-        "password": "$2a$10$xEXjdCwSe9AY8m515V0bpOSQQfAY7BcJFge/YWGa7hSrTd/CTWepC",
-        "role": "student",
-        "createdAt": "2015-11-02T14:04:25.275Z",
-        "updatedAt": "2015-11-02T14:04:25.275Z",
+        "surname": "Tanár",
+        "forename": "Tamás",
+        "mtra": "ASDQWE",
+        "password": "$2a$10$C1hQLEp2QYL0SjEce64AbO9sK61XtLFC9z8f2adoHT59wepJOAVsO",
+        "role": "teacher",
+        "createdAt": "2015-11-04T17:36:31.928Z",
+        "updatedAt": "2015-11-04T17:36:31.928Z",
         "id": 2
       },
       {
-        "surname": "Mr.",
-        "forename": "T.",
-        "mtra": "MRTFCK",
-        "password": "$2a$10$zGlE.BpDshKVk8rArPgG/ulKOMn9Owf3dnlRSdxgqrwaFf0itnoL6",
-        "role": "teacher",
-        "createdAt": "2015-11-02T14:07:18.670Z",
-        "updatedAt": "2015-11-02T14:07:18.670Z",
-        "id": 3
-      },
-      {
-        "surname": "Knizner",
+        "surname": "Hallgató2",
         "forename": "Tamás",
-        "mtra": "asdasd",
-        "password": "$2a$10$dmNNMkcwVWrgilFwN.4zd.T.HYJ5YL2MiA6Wxe1vjHYM8Ws1uCmgS",
+        "mtra": "H2TAMA",
+        "password": "$2a$10$pzjAzJ.Rj6emRZXCQ2rnI.asNtRnDR4Ed0ZiyfY7cja0O5HydzFzW",
         "role": "student",
-        "createdAt": "2015-11-02T14:08:13.730Z",
-        "updatedAt": "2015-11-02T14:08:13.730Z",
-        "id": 4
+        "createdAt": "2015-11-04T18:04:47.172Z",
+        "updatedAt": "2015-11-04T18:04:47.172Z",
+        "id": 3
       }
     ],
-    "subject": []
+    "subject": [
+      {
+        "status": "available",
+        "subjectName": "Analízis 1",
+        "room": "asd",
+        "description": "qwe",
+        "role": null,
+        "createdAt": "2015-11-04T17:54:35.471Z",
+        "updatedAt": "2015-11-04T17:54:35.471Z",
+        "id": 1
+      }
+    ]
   },
   "schema": {
     "user": {
@@ -121,8 +122,10 @@
   },
   "counters": {
     "user": {
-      "id": 4
+      "id": 3
     },
-    "subject": {}
+    "subject": {
+      "id": 1
+    }
   }
 }

@@ -16,6 +16,7 @@
     "sails-disk": "^0.10.8",
     "sails-memory": "^0.10.5",
     "sails-postgresql": "^0.10.16",
+    "util": "^0.10.3",
     "waterline": "^0.10.26"
   }
 }

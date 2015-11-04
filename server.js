@@ -1,3 +1,4 @@
+var util = require('util');
 var express = require('express');
 var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
@@ -18,7 +19,7 @@ var subjectCollection = require('./models/subject');
 orm.loadCollection(Waterline.Collection.extend(userCollection));
 orm.loadCollection(Waterline.Collection.extend(subjectCollection));
 
-var indexController = require('./controllers/index');
+//var indexController = require('./controllers/index');
 var loginController = require('./controllers/login');
 var subjectController = require('./controllers/subject');
 var app = express();
@@ -60,7 +61,6 @@ passport.use('local-signup', new LocalStrategy({
     function(req, mtra, password, done) {
         
         req.app.models.user.findOne({ mtra: mtra }, function(err, user) {
-            console.log("inside req fn");
             if (err) { return done(err); }
             if (user) {
                 return done(null, false, { message: 'Létező MTR-azonosító.' });
@@ -77,12 +77,13 @@ passport.use('local-signup', new LocalStrategy({
 ));
 
 // Stratégia
-passport.use('local', new LocalStrategy({
+passport.use('local-login', new LocalStrategy({
         usernameField: 'mtra',
         passwordField: 'password',
         passReqToCallback: true,
     },
     function(req, mtra, password, done) {
+        console.log('local-login ' + util.inspect(req.body, false, null));
         req.app.models.user.findOne({ mtra: mtra }, function(err, user) {
             if (err) { return done(err); }
             if (!user || !user.validPassword(password)) {
@@ -107,7 +108,7 @@ function ensureAuthenticated(req, res, next) {
 }
 
 //endpoints
-app.use('/', indexController);
+app.use('/', loginController);
 app.use('/subjects', ensureAuthenticated, subjectController);
 app.use('/login', loginController);
 

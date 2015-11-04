@@ -45,6 +45,27 @@
                 {{/if}}
             </div>
         </div>
+        
+        <div class="form-group
+            {{#if validationErrors.room}}
+                has-error
+            {{/if}}
+        ">
+            <label for="status" class="col-lg-2 control-label">Terem</label>
+            <div class="col-lg-10">
+                <!--textarea class="form-control" rows="2" id="status" name="status">{{data.status}}</textarea-->
+                <select class="form-control" id="status" name="status">
+                    <option name="available" value="available">Elérhető</option>
+                    <option name="inavailable" value="inavailable">Nem elérhető</option>
+                    <option name="passive" value="passive">Nincs meghírdetve</option>
+                </select>
+                <!--span class="help-block">Terem</span-->
+                {{#if validationErrors.status}}
+                    <span class="help-block">{{validationErrors.status.msg}}</span>
+                {{/if}}
+            </div>
+        </div>
+        
         <div class="form-group">
             <div class="col-lg-10 col-lg-offset-2">
                 <button type="reset" class="btn btn-default">Cancel</button>

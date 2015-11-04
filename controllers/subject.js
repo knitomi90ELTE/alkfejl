@@ -24,7 +24,7 @@ function decorateSubjects(subjectContainer) {
 
 router.get('/list', function (req, res) {
     req.app.models.subject.find().then(function (subjects) {
-        console.log(subjects);
+        console.log('subjects: ' + subjects);
         //megjelenítés
         res.render('subjects/list', {
             errors: decorateSubjects(subjects),
@@ -33,6 +33,7 @@ router.get('/list', function (req, res) {
     });
 });
 router.get('/new', function (req, res) {
+    console.log('req.app: ' + req.app);
     var validationErrors = (req.flash('validationErrors') || [{}]).pop();
     var data = (req.flash('data') || [{}]).pop();
     
@@ -43,7 +44,9 @@ router.get('/new', function (req, res) {
 });
 router.post('/new', function (req, res) {
     // adatok ellenőrzése
-    req.checkBody('terem', 'Hibás helyszín').notEmpty().withMessage('Kötelező megadni!');
+    console.log('/new req: ' + req);
+    req.checkBody('subjectName', 'Nem adtál meg tárgynevet!').notEmpty().withMessage('Kötelező megadni!');
+    req.checkBody('room', 'Hibás helyszín').notEmpty().withMessage('Kötelező megadni!');
     req.sanitizeBody('description').escape();
     req.checkBody('description', 'Hibás leírás').notEmpty().withMessage('Kötelező megadni!');
     
@@ -55,14 +58,14 @@ router.post('/new', function (req, res) {
         req.flash('validationErrors', validationErrors);
         req.flash('data', req.body);
         res.redirect('/subjects/new');
-    }
-    else {
+    } else {
         // adatok elmentése (ld. később) és a hibalista megjelenítése
         
-        console.log("cb: " + req.body.role);
+        console.log("cb: " + req.body.user);
         
         req.app.models.subject.create({
-            status: 'new',
+            status: req.body.status,
+            subjectName: req.body.subjectName,
             room: req.body.room,
             description: req.body.description,
             role: req.body.role,

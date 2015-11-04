@@ -5,10 +5,25 @@ var passport = require('passport');
 var router = express.Router();
 
 router.get('/', function (req, res) {
-    res.render('login/index');
+    res.render('login/login', {
+        errorMessages: req.flash()
+    });
 });
 
-router.post('/', passport.authenticate('local', {
+router.get('/login', function (req, res) {
+    res.render('login/login', {
+        errorMessages: req.flash()
+    });
+});
+
+router.post('/', passport.authenticate('local-login', {
+    successRedirect: '/subjects/list',
+    failureRedirect: '/login',
+    failureFlash: true,
+    badRequestMessage: 'Hiányzó adatok'
+}));
+
+router.post('/login', passport.authenticate('local-login', {
     successRedirect: '/subjects/list',
     failureRedirect: '/login',
     failureFlash: true,
@@ -17,15 +32,15 @@ router.post('/', passport.authenticate('local', {
 
 router.get('/signup', function (req, res) {
     res.render('login/signup', {
-        errorMessages: req.flash('error')
+        errorMessages: req.flash()
     });
 });
 
 router.post('/signup', passport.authenticate('local-signup', {
-    successRedirect:    '/login',
-    failureRedirect:    '/login/signup',
-    failureFlash:       true,
-    badRequestMessage:  'Hiányzó adatok'
+    successRedirect: '/',
+    failureRedirect: '/login/signup',
+    failureFlash: true,
+    badRequestMessage: 'Hiányzó adatok'
 }));
 
 module.exports = router;
