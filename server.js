@@ -1,4 +1,8 @@
 var util = require('util');
+function debug(title, data){
+    console.log(title + ": " + util.inspect(data, false, null));
+}
+
 var express = require('express');
 var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
@@ -83,7 +87,7 @@ passport.use('local-login', new LocalStrategy({
         passReqToCallback: true,
     },
     function(req, mtra, password, done) {
-        console.log('local-login ' + util.inspect(req.body, false, null));
+        debug('local-login',req.body);
         req.app.models.user.findOne({ mtra: mtra }, function(err, user) {
             if (err) { return done(err); }
             if (!user || !user.validPassword(password)) {
@@ -109,6 +113,10 @@ function ensureAuthenticated(req, res, next) {
 
 //endpoints
 app.use('/', loginController);
+/*app.get('/',function(req, res){
+   app.redirect('/login'); 
+});*/
+
 app.use('/subjects', ensureAuthenticated, subjectController);
 app.use('/login', loginController);
 

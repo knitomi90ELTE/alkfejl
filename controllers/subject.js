@@ -2,6 +2,11 @@
 var express = require('express');
 var router = express.Router();
 
+var util = require('util');
+function debug(title, data){
+    console.log(title + ": " + util.inspect(data, false, null));
+}
+
 //Viewmodel réteg
 var statusTexts = {
     'available': 'Jelentkezhet',
@@ -24,16 +29,25 @@ function decorateSubjects(subjectContainer) {
 
 router.get('/list', function (req, res) {
     req.app.models.subject.find().then(function (subjects) {
-        console.log('subjects: ' + subjects);
+        debug('req.user',req.user);
+        //debug('subjects',subjects);
         //megjelenítés
-        res.render('subjects/list', {
-            errors: decorateSubjects(subjects),
-            messages: req.flash('info'),
-        });
+        
+        if(req.user.role == "teacher"){
+            res.render('subjects/list_teacher', {
+                errors: decorateSubjects(subjects),
+                messages: req.flash('info'),
+            });
+        }else{
+            res.render('subjects/list', {
+                errors: decorateSubjects(subjects),
+                messages: req.flash('info'),
+            });
+        }
     });
 });
 router.get('/new', function (req, res) {
-    console.log('req.app: ' + req.app);
+    //debug('req.app',req.body);
     var validationErrors = (req.flash('validationErrors') || [{}]).pop();
     var data = (req.flash('data') || [{}]).pop();
     
@@ -44,11 +58,11 @@ router.get('/new', function (req, res) {
 });
 router.post('/new', function (req, res) {
     // adatok ellenőrzése
-    console.log('/new req: ' + req);
+    //debug('/new req',req.body);
     req.checkBody('subjectName', 'Nem adtál meg tárgynevet!').notEmpty().withMessage('Kötelező megadni!');
-    req.checkBody('room', 'Hibás helyszín').notEmpty().withMessage('Kötelező megadni!');
+    req.checkBody('room', 'Nem adtál meg helyszínt!').notEmpty().withMessage('Kötelező megadni!');
     req.sanitizeBody('description').escape();
-    req.checkBody('description', 'Hibás leírás').notEmpty().withMessage('Kötelező megadni!');
+    req.checkBody('description', 'Nem adtál meg leírást!').notEmpty().withMessage('Kötelező megadni!');
     
     var validationErrors = req.validationErrors(true);
     console.log(validationErrors);
@@ -61,17 +75,14 @@ router.post('/new', function (req, res) {
     } else {
         // adatok elmentése (ld. később) és a hibalista megjelenítése
         
-        console.log("cb: " + req.body.user);
-        
         req.app.models.subject.create({
             status: req.body.status,
             subjectName: req.body.subjectName,
             room: req.body.room,
-            description: req.body.description,
-            role: req.body.role,
+            description: req.body.description
         })
         .then(function (subject) {
-            req.flash('info', 'Hiba sikeresen felvéve!');
+            req.flash('info', 'Tantárgy sikeresen felvéve!');
             res.redirect('/subjects/list');
         })
         .catch(function (err) {

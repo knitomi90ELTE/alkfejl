@@ -30,6 +30,16 @@
         "createdAt": "2015-11-04T18:04:47.172Z",
         "updatedAt": "2015-11-04T18:04:47.172Z",
         "id": 3
+      },
+      {
+        "surname": "Tanár",
+        "forename": "Tamás",
+        "mtra": "TANAR1",
+        "password": "$2a$10$X5LzP4FLxB/2k.U5XJE6e.qK8eftriTeStdyHzzSmERKJ1NXfIMnO",
+        "role": "teacher",
+        "createdAt": "2015-11-05T16:57:03.066Z",
+        "updatedAt": "2015-11-05T16:57:03.066Z",
+        "id": 4
       }
     ],
     "subject": [
@@ -42,6 +52,16 @@
         "createdAt": "2015-11-04T17:54:35.471Z",
         "updatedAt": "2015-11-04T17:54:35.471Z",
         "id": 1
+      },
+      {
+        "status": "available",
+        "subjectName": "Analízis 2",
+        "room": "D0-821",
+        "description": "Analízis 2 tantárgy",
+        "role": null,
+        "createdAt": "2015-11-05T16:43:48.846Z",
+        "updatedAt": "2015-11-05T16:43:48.846Z",
+        "id": 2
       }
     ]
   },
@@ -122,10 +142,10 @@
   },
   "counters": {
     "user": {
-      "id": 3
+      "id": 4
     },
     "subject": {
-      "id": 1
+      "id": 2
     }
   }
 }

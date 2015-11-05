@@ -16,6 +16,11 @@ router.get('/login', function (req, res) {
     });
 });
 
+router.get('/logout', function(req, res){
+    req.logout();
+    res.redirect('/');
+});
+
 router.post('/', passport.authenticate('local-login', {
     successRedirect: '/subjects/list',
     failureRedirect: '/login',
