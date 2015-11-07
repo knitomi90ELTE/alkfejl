@@ -49,12 +49,10 @@ app.use(passport.initialize()); //Passport middlewares
 app.use(passport.session()); //Session esetén (opcionális)
 
 passport.serializeUser(function(user, done) {
-    //debug('serializeUser',user);
     done(null, user);
 });
 
 passport.deserializeUser(function(obj, done) {
-    //debug('serializeUser',obj);
     done(null, obj);
 })
 

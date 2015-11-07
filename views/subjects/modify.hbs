@@ -54,9 +54,8 @@
             <label for="status" class="col-lg-2 control-label">Terem</label>
             <div class="col-lg-10">
                 <select class="form-control" id="status" name="status">
-                    <option name="available" value="available">Elérhető</option>
-                    <option name="inavailable" value="inavailable">Nem elérhető</option>
-                    <option name="passive" value="passive">Nincs meghírdetve</option>
+                    <option name="available" value="true">Aktív</option>
+                    <option name="inavailable" value="false">Passzív</option>
                 </select>
                 <!--span class="help-block">Terem</span-->
                 {{#if validationErrors.status}}

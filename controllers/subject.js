@@ -10,18 +10,18 @@ function debug(title, data){
 }
 
 var statusTexts = {
-    'available': 'Jelentkezhet',
-    'inavailable': 'Nem jelentkezhet',
+    true : 'Jelentkezhet',
+    false : 'Nem jelentkezhet',
 };
 
 var teacherStatusTexts = {
-    'available': 'Aktív',
-    'inavailable': 'Passzív',
+    true : 'Aktív',
+    false : 'Passzív',
 };
 
 var statusClasses = {
-    'available': 'success',
-    'inavailable': 'danger',
+    true : 'success',
+    false : 'danger',
 };
 
 function decorateSubjects(subjectContainer, teacher) {
@@ -37,37 +37,68 @@ function ensureAuthenticated(req, res, next) {
     res.redirect('/login');
 }
 
+function getUserById(req, id, done){
+    req.app.models.user.findOne({ id: id }, function(err, user) {
+        if (err) { return done(err); }
+        return done(null, user);
+    });
+}
+
 router.get('/list', function (req, res) {
     //'subjects/list'
-    debug('/list', req.user);
+    //debug('/list', req.user);
     var teacher = (req.user.role == "teacher");
     console.log('I am a teacher: ' + teacher);
     if(teacher){
-        req.app.models.subject.find().then(function (subjects) {
-            res.render('subjects/list_teacher', {
-                errors: decorateSubjects(subjects, teacher),
-                messages: req.flash('info'),
-            });
+        req.app.models.subject.find()
+        .then(function (subjects) {
+            for(var i in subjects){
+                var s = subjects[i];
+                getUserById(req, s.user, function(err, user){
+                    if(err){console.log(err)};
+                    _.extend(s, {creator : user.surname + ' ' + user.forename});
+                    console.log(user.surname + ' ' + user.forename);
+                })
+            }
+            setTimeout(function(){
+                debug('subjects',subjects);
+                res.render('subjects/list_teacher', {
+                    errors: decorateSubjects(subjects, teacher),
+                    messages: req.flash('info'),
+                });
+            },1000)
+            
+        })
+        .catch(function (err) {
+            console.log(err);
         });
     } else {
-        req.app.models.csat.find({student_id : req.user.id}).then(function (felvett){
+        req.app.models.csat.find({student_id : req.user.id})
+        .then(function (felvett){
             var subjects_ids = [];
             for(var i in felvett){
                 subjects_ids.push(felvett[i].subject_id);
             }
-            req.app.models.subject.find().then(function(subjects) {
+            req.app.models.subject.find()
+            .then(function(subjects) {
                for(var i in subjects){
                    var s = subjects[i];
                    if(_.indexOf(subjects_ids, s.id) != -1){
                        _.extend(s, {picked : true});
                    }
                }
-               debug('moddolt',subjects);
+               //debug('moddolt',subjects);
                res.render('subjects/list', {
                     errors: decorateSubjects(subjects, false),
                     messages: req.flash('info'),
                 });
+            })
+            .catch(function (err) {
+                console.log(err);
             });
+        })
+        .catch(function (err) {
+            console.log(err);
         });
     }
 });
@@ -96,7 +127,7 @@ router.post('/new', function (req, res) {
         req.flash('data', req.body);
         res.redirect('new');
     } else {
-        
+        debug('req.user',req.user);
         req.app.models.subject.create({
             status: req.body.status,
             subjectName: req.body.subjectName,
@@ -195,10 +226,10 @@ router.post('/modify/:id', function(req, res) {
                 room: req.body.room,
                 description: req.body.description,
                 status: req.body.status,
-                user : req.user.mtra
+                user : req.user
             })
         .then(function() {
-            req.flash('info', 'Tantárgy sikeresen törölve!');
+            req.flash('info', 'Tantárgy sikeresen módosítva!');
             res.redirect('/subjects/list');
         })
         .catch(function (err) {

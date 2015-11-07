@@ -52,8 +52,8 @@
             <label for="status" class="col-lg-2 control-label">Terem</label>
             <div class="col-lg-10">
                 <select class="form-control" id="status" name="status">
-                    <option name="available" value="available">Aktív</option>
-                    <option name="inavailable" value="inavailable">Passzív</option>
+                    <option name="available" value="true">Aktív</option>
+                    <option name="inavailable" value="false">Passzív</option>
                 </select>
                 {{#if validationErrors.status}}
                     <span class="help-block">{{validationErrors.status.msg}}</span>

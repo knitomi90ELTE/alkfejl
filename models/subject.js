@@ -7,10 +7,9 @@ module.exports = {
             required: true,
         },
         status: {
-            type: 'string',
-            enum: ['available', 'inavailable'],
+            type: 'boolean',
             required: true,
-            defaultsTo: 'passive',
+            defaultsTo: true,
         },
         room: {
             type: 'string',

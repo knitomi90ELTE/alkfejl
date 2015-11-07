@@ -13,9 +13,10 @@
     <thead>
         <tr>
             <th>Név</th>
-            <th>Státusz</th>
             <th>Terem</th>
-            <th>Leírás</th>
+            <th>leírás</th>
+            <th>Státusz</th>
+            <th>Létrehozta</th>
         </tr>   
     </thead>
     <tbody>
@@ -28,9 +29,9 @@
             <td>{{user}}</td>
             <td align="right">
                 {{#if picked}}
-                    <a class="btn btn-xs btn-danger" data-toggle="tooltip" data-placement="top" title="Törlés" href='remove/{{id}}'>Leadás</a>
+                    <a class="btn btn-xs btn-danger {{#unless status}}disabled{{/unless }}" data-toggle="tooltip" data-placement="top" title="Törlés" href='remove/{{id}}'>Leadás</a>
                 {{else}}
-                    <a class="btn btn-xs btn-primary" data-toggle="tooltip" data-placement="top" title="Törlés" href='add/{{id}}'>Felvesz</a>
+                    <a class="btn btn-xs btn-primary {{#unless status}}disabled{{/unless }}" data-toggle="tooltip" data-placement="top" title="Törlés" href='add/{{id}}'>Felvesz</a>
                 {{/if}}
                 
             </td>
