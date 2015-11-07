@@ -5,91 +5,46 @@
         "surname": "Tanár",
         "forename": "Tamás",
         "mtra": "TANAR1",
-        "password": "$2a$10$Ov.589UtM7fy.6jJAQIPSOsb8194kgh4JKex7Kb3YxoTcsTXojMMi",
+        "password": "$2a$10$jDkN41JflCudJzCRMUmiR.nE/I8mrAGzYbrGp3mtHbVXYUPYqDBiG",
         "role": "teacher",
-        "createdAt": "2015-11-07T19:30:08.559Z",
-        "updatedAt": "2015-11-07T19:32:21.169Z",
+        "createdAt": "2015-11-07T22:52:46.823Z",
+        "updatedAt": "2015-11-07T22:52:46.823Z",
         "id": 1
-      },
-      {
-        "surname": "Hallgató",
-        "forename": "Tamás",
-        "mtra": "HALLGA1",
-        "password": "$2a$10$ENJ23czp/ZJ/hLtGkRiWHOOwylVmQzB.jXgGUqbiZfvGhk.tKPg12",
-        "role": "student",
-        "createdAt": "2015-11-07T19:33:05.855Z",
-        "updatedAt": "2015-11-07T19:33:05.855Z",
-        "id": 2
       }
     ],
     "subject": [
       {
-        "status": "available",
-        "subjectName": "Tárgy 1",
-        "room": "kórterem",
-        "description": "Leírás asd",
+        "status": true,
+        "subjectName": "Analízis 1",
+        "room": "D0-821",
+        "description": "Leírás analízis 1",
         "user": 1,
-        "createdAt": "2015-11-07T19:30:19.096Z",
-        "updatedAt": "2015-11-07T19:30:19.096Z",
+        "createdAt": "2015-11-07T22:52:53.642Z",
+        "updatedAt": "2015-11-07T22:52:53.642Z",
         "id": 1
       },
       {
-        "status": "available",
-        "subjectName": "Tárgy 2",
-        "room": "8",
-        "description": "Szar.",
+        "status": true,
+        "subjectName": "Analízis 2",
+        "room": "D0-822",
+        "description": "Leírás analízis 2",
         "user": 1,
-        "createdAt": "2015-11-07T19:30:26.444Z",
-        "updatedAt": "2015-11-07T19:30:26.444Z",
+        "createdAt": "2015-11-07T22:53:02.429Z",
+        "updatedAt": "2015-11-07T22:53:02.429Z",
         "id": 2
       },
       {
-        "status": "available",
-        "subjectName": "Analízis 2",
-        "room": "asd",
-        "description": "asdf",
-        "user": 1,
-        "createdAt": "2015-11-07T19:30:34.582Z",
-        "updatedAt": "2015-11-07T19:30:34.582Z",
-        "id": 3
-      },
-      {
-        "status": "available",
+        "status": true,
         "subjectName": "Analízis 3",
-        "room": "asd",
-        "description": "Leírás analízis",
+        "room": "D0-823",
+        "description": "Leírás analízis 3",
         "user": 1,
-        "createdAt": "2015-11-07T19:31:20.230Z",
-        "updatedAt": "2015-11-07T19:32:21.182Z",
-        "id": 4
-      },
-      {
-        "status": "available",
-        "subjectName": "Analízis 1",
-        "room": "kórterem",
-        "description": "Leírás analízis 1",
-        "user": 1,
-        "createdAt": "2015-11-07T19:32:39.109Z",
-        "updatedAt": "2015-11-07T19:32:39.109Z",
-        "id": 5
+        "createdAt": "2015-11-07T22:54:21.650Z",
+        "updatedAt": "2015-11-07T22:54:21.650Z",
+        "id": 3
       }
     ],
-    "csat": [
-      {
-        "student_id": 2,
-        "subject_id": 2,
-        "createdAt": "2015-11-07T19:52:31.920Z",
-        "updatedAt": "2015-11-07T19:52:31.920Z",
-        "id": 2
-      },
-      {
-        "student_id": 2,
-        "subject_id": 1,
-        "createdAt": "2015-11-07T21:01:36.838Z",
-        "updatedAt": "2015-11-07T21:01:36.838Z",
-        "id": 3
-      }
-    ]
+    "csat": []
   },
   "schema": {
     "user": {
@@ -132,12 +87,8 @@
         "type": "string"
       },
       "status": {
-        "type": "string",
-        "enum": [
-          "available",
-          "inavailable"
-        ],
-        "defaultsTo": "passive"
+        "type": "boolean",
+        "defaultsTo": true
       },
       "room": {
         "type": "string"
@@ -193,13 +144,11 @@
   },
   "counters": {
     "user": {
-      "id": 2
+      "id": 1
     },
     "subject": {
-      "id": 5
-    },
-    "csat": {
       "id": 3
-    }
+    },
+    "csat": {}
   }
 }
