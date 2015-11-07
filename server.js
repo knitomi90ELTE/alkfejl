@@ -37,8 +37,11 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressValidator());
 app.use(session({
-    cookie: { maxAge: 60000 },
-    secret: 'titkos szoveg',
+    cookie: {
+        maxAge  : new Date(Date.now() + 3600000), //1 Hour
+        expires : new Date(Date.now() + 3600000), //1 Hour
+    },
+    secret  : "Stays my secret",
     resave: false,
     saveUninitialized: false,
 }));
@@ -47,10 +50,12 @@ app.use(passport.initialize()); //Passport middlewares
 app.use(passport.session()); //Session esetén (opcionális)
 
 passport.serializeUser(function(user, done) {
+    //debug('serializeUser',user);
     done(null, user);
 });
 
 passport.deserializeUser(function(obj, done) {
+    //debug('serializeUser',obj);
     done(null, obj);
 })
 
@@ -130,9 +135,6 @@ function andRestrictTo(role) {
         }
     }
 }
-app.get('/teacher', ensureAuthenticated, andRestrictTo('teacher'), function(req, res) {
-    res.end('teacher');
-});
 
 // ORM indítása
 orm.initialize(waterlineConfig, function(err, models) {

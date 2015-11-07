@@ -45,23 +45,21 @@
     "subject": [
       {
         "status": "available",
-        "subjectName": "Analízis 1",
-        "room": "asd",
-        "description": "qwe",
-        "role": null,
-        "createdAt": "2015-11-04T17:54:35.471Z",
-        "updatedAt": "2015-11-04T17:54:35.471Z",
-        "id": 1
+        "subjectName": "Analízis 5",
+        "room": "kórterem",
+        "description": "Leírás analízis",
+        "createdAt": "2015-11-07T16:51:04.863Z",
+        "updatedAt": "2015-11-07T17:37:09.655Z",
+        "id": 9
       },
       {
         "status": "available",
-        "subjectName": "Analízis 2",
-        "room": "D0-821",
-        "description": "Analízis 2 tantárgy",
-        "role": null,
-        "createdAt": "2015-11-05T16:43:48.846Z",
-        "updatedAt": "2015-11-05T16:43:48.846Z",
-        "id": 2
+        "subjectName": "Matematika 5",
+        "room": "8",
+        "description": "Szar.",
+        "createdAt": "2015-11-07T17:42:13.271Z",
+        "updatedAt": "2015-11-07T17:48:17.214Z",
+        "id": 10
       }
     ]
   },
@@ -145,7 +143,7 @@
       "id": 4
     },
     "subject": {
-      "id": 2
+      "id": 10
     }
   }
 }

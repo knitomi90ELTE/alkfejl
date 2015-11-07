@@ -7,7 +7,6 @@ function debug(title, data){
     console.log(title + ": " + util.inspect(data, false, null));
 }
 
-//Viewmodel réteg
 var statusTexts = {
     'available': 'Jelentkezhet',
     'inavailable': 'Nem jelentkezhet',
@@ -27,27 +26,28 @@ function decorateSubjects(subjectContainer) {
     });
 }
 
+function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) { return next(); }
+    res.redirect('/login');
+}
+
 router.get('/list', function (req, res) {
+    console.log('listreferer' + req.headers.referer);
+    debug('list get', req.body);
     req.app.models.subject.find().then(function (subjects) {
-        debug('req.user',req.user);
-        //debug('subjects',subjects);
-        //megjelenítés
+
+        var view = (req.user.role == "teacher") ? 'subjects/list_teacher' : 'subjects/list';
         
-        if(req.user.role == "teacher"){
-            res.render('subjects/list_teacher', {
-                errors: decorateSubjects(subjects),
-                messages: req.flash('info'),
-            });
-        }else{
-            res.render('subjects/list', {
-                errors: decorateSubjects(subjects),
-                messages: req.flash('info'),
-            });
-        }
+        res.render(view, {
+            errors: decorateSubjects(subjects),
+            messages: req.flash('info'),
+            subjects: subjects.filter(function(item) {
+                return item.user == req.user.id;   
+            })
+        });
     });
 });
 router.get('/new', function (req, res) {
-    //debug('req.app',req.body);
     var validationErrors = (req.flash('validationErrors') || [{}]).pop();
     var data = (req.flash('data') || [{}]).pop();
     
@@ -56,24 +56,22 @@ router.get('/new', function (req, res) {
         data: data,
     });
 });
+
 router.post('/new', function (req, res) {
-    // adatok ellenőrzése
-    //debug('/new req',req.body);
+
     req.checkBody('subjectName', 'Nem adtál meg tárgynevet!').notEmpty().withMessage('Kötelező megadni!');
     req.checkBody('room', 'Nem adtál meg helyszínt!').notEmpty().withMessage('Kötelező megadni!');
     req.sanitizeBody('description').escape();
     req.checkBody('description', 'Nem adtál meg leírást!').notEmpty().withMessage('Kötelező megadni!');
     
     var validationErrors = req.validationErrors(true);
-    console.log(validationErrors);
+    debug('validationErrors',validationErrors)
     
     if (validationErrors) {
-        // űrlap megjelenítése a hibákkal és a felküldött adatokkal
         req.flash('validationErrors', validationErrors);
         req.flash('data', req.body);
-        res.redirect('/subjects/new');
+        res.redirect('new');
     } else {
-        // adatok elmentése (ld. később) és a hibalista megjelenítése
         
         req.app.models.subject.create({
             status: req.body.status,
@@ -84,6 +82,72 @@ router.post('/new', function (req, res) {
         .then(function (subject) {
             req.flash('info', 'Tantárgy sikeresen felvéve!');
             res.redirect('/subjects/list');
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
+    }
+});
+
+router.get('/delete/:id', ensureAuthenticated, function(req, res) {
+    debug('delete',req.params);
+    req.app.models.subject.destroy({
+        id: req.params.id
+    })
+    .then(function() {
+        req.flash('info', 'Tantárgy sikeresen törölve!');
+        res.redirect('list');
+    })
+    .catch(function (err) {
+        console.log(err);
+    });
+});
+
+router.get('/modify/:id', ensureAuthenticated, function(req, res) {
+    var validationErrors = (req.flash('validationErrors') || [{}]).pop();
+    var mod_id = (req.flash('mod_id') || [{}]).pop();
+    var finalId = (mod_id) ? mod_id : req.params.id;
+    
+    req.app.models.subject.findOne({
+        id: finalId
+    }).then(function(subject) {
+        res.render('subjects/modify', {
+            subject: subject, 
+            validationErrors: validationErrors,
+        });
+    });
+});
+
+router.post('/modify/:id', function(req, res) {
+
+    req.checkBody('subjectName', 'Nem adtál meg tárgynevet!').notEmpty().withMessage('Kötelező megadni!');
+    req.checkBody('room', 'Nem adtál meg helyszínt!').notEmpty().withMessage('Kötelező megadni!');
+    req.sanitizeBody('description').escape();
+    req.checkBody('description', 'Nem adtál meg leírást!').notEmpty().withMessage('Kötelező megadni!');
+    
+    var validationErrors = req.validationErrors(true);
+    debug('validationErrors',validationErrors)
+    
+    if(validationErrors) {
+        req.flash('validationErrors', validationErrors);
+        req.flash('mod_id', req.params.id);
+        res.redirect('modify');
+    } else {
+        req.app.models.subject.update({id: req.params.id},
+            {
+                subjectName: req.body.subjectName, 
+                room: req.body.room,
+                description: req.body.description,
+                status: req.body.status
+            })
+        .then(function() {
+            req.flash('info', 'Tantárgy sikeresen törölve!');
+            //debug('res',res);
+            //console.log(Object.keys(res));
+            debug('output',res.output);
+            debug('domain',res.domain);
+            debug('connection',res.connection);
+            res.redirect('list');
         })
         .catch(function (err) {
             console.log(err);

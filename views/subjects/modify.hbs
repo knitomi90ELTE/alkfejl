@@ -1,5 +1,5 @@
 <div class="page-header">
-    <h1>Tárgy létrehozása</h1>
+    <h1>Tárgy módosítása</h1>
 </div>
 
 <form class="form-horizontal" method="post">
@@ -11,7 +11,7 @@
         ">
             <label for="subjectName" class="col-lg-2 control-label">Tárgy neve</label>
             <div class="col-lg-10">
-                <input class="form-control" id="subjectName" name="subjectName" placeholder="pl. Arab varázslás, Szexuálpszichológia" type="text" value="{{data.subjectName}}">
+                <input class="form-control" id="subjectName" name="subjectName" placeholder="{{subject.subjectName}}" type="text" value="{{subject.subjectName}}" />
                 {{#if validationErrors.subjectName}}
                     <span class="help-block">{{validationErrors.subjectName.msg}}</span>
                 {{/if}}
@@ -24,7 +24,7 @@
         ">
             <label for="leiras" class="col-lg-2 control-label">Leírás</label>
             <div class="col-lg-10">
-                <input class="form-control" id="description" name="description">{{data.description}}</input>
+                <input class="form-control" id="description" name="description" placeholder="{{subject.description}}" value="{{subject.description}}"  />
                 <!--span class="help-block">Tárgy rövid leírása</span-->
                 {{#if validationErrors.description}}
                     <span class="help-block">{{validationErrors.description.msg}}</span>
@@ -38,7 +38,7 @@
         ">
             <label for="room" class="col-lg-2 control-label">Terem</label>
             <div class="col-lg-10">
-                <input class="form-control" id="room" name="room">{{data.room}}</input>
+                <input class="form-control" id="room" name="room" placeholder="{{subject.room}}" value="{{subject.room}}"/>
                 <!--span class="help-block">Terem</span-->
                 {{#if validationErrors.room}}
                     <span class="help-block">{{validationErrors.room.msg}}</span>
@@ -53,7 +53,6 @@
         ">
             <label for="status" class="col-lg-2 control-label">Terem</label>
             <div class="col-lg-10">
-                <!--textarea class="form-control" rows="2" id="status" name="status">{{data.status}}</textarea-->
                 <select class="form-control" id="status" name="status">
                     <option name="available" value="available">Elérhető</option>
                     <option name="inavailable" value="inavailable">Nem elérhető</option>

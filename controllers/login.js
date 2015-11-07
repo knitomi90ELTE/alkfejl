@@ -4,17 +4,28 @@ var express = require('express');
 var passport = require('passport');
 var router = express.Router();
 
-router.get('/', function (req, res) {
-    res.render('login/login', {
-        errorMessages: req.flash()
-    });
-});
+function getLogin(req, res){
+    if(req.isAuthenticated()){
+        res.redirect('subjects/list');
+    } else {
+        res.render('login/login', {
+            errorMessages: req.flash()
+        });
+    }
+}
 
-router.get('/login', function (req, res) {
-    res.render('login/login', {
-        errorMessages: req.flash()
+function postLogin(req, res){
+    
+    passport.authenticate('local-login', {
+        successRedirect: '/subjects/list',
+        failureRedirect: '/login',
+        failureFlash: true,
+        badRequestMessage: 'Hiányzó adatok'
     });
-});
+}
+
+router.get('/', getLogin);
+router.get('/login', getLogin);
 
 router.get('/logout', function(req, res){
     req.logout();
