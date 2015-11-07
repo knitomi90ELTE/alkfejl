@@ -8,7 +8,7 @@ module.exports = {
         },
         status: {
             type: 'string',
-            enum: ['available', 'inavailable', 'passive'],
+            enum: ['available', 'inavailable'],
             required: true,
             defaultsTo: 'passive',
         },
@@ -22,6 +22,6 @@ module.exports = {
         },
         user: {
             model: 'user',
-        },
+        }
     }
 };

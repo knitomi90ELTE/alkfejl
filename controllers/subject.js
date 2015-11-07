@@ -2,6 +2,8 @@
 var express = require('express');
 var router = express.Router();
 
+var _ = require('underscore');
+
 var util = require('util');
 function debug(title, data){
     console.log(title + ": " + util.inspect(data, false, null));
@@ -10,17 +12,21 @@ function debug(title, data){
 var statusTexts = {
     'available': 'Jelentkezhet',
     'inavailable': 'Nem jelentkezhet',
-    'passive': 'Passzív',
 };
+
+var teacherStatusTexts = {
+    'available': 'Aktív',
+    'inavailable': 'Passzív',
+};
+
 var statusClasses = {
     'available': 'success',
     'inavailable': 'danger',
-    'passive': 'info',
 };
 
-function decorateSubjects(subjectContainer) {
+function decorateSubjects(subjectContainer, teacher) {
     return subjectContainer.map(function (e) {
-        e.statusText = statusTexts[e.status];
+        e.statusText = (teacher) ? teacherStatusTexts[e.status] : statusTexts[e.status];
         e.statusClass = statusClasses[e.status];
         return e;
     });
@@ -32,20 +38,38 @@ function ensureAuthenticated(req, res, next) {
 }
 
 router.get('/list', function (req, res) {
-    console.log('listreferer' + req.headers.referer);
-    debug('list get', req.body);
-    req.app.models.subject.find().then(function (subjects) {
-
-        var view = (req.user.role == "teacher") ? 'subjects/list_teacher' : 'subjects/list';
-        
-        res.render(view, {
-            errors: decorateSubjects(subjects),
-            messages: req.flash('info'),
-            subjects: subjects.filter(function(item) {
-                return item.user == req.user.id;   
-            })
+    //'subjects/list'
+    debug('/list', req.user);
+    var teacher = (req.user.role == "teacher");
+    console.log('I am a teacher: ' + teacher);
+    if(teacher){
+        req.app.models.subject.find().then(function (subjects) {
+            res.render('subjects/list_teacher', {
+                errors: decorateSubjects(subjects, teacher),
+                messages: req.flash('info'),
+            });
         });
-    });
+    } else {
+        req.app.models.csat.find({student_id : req.user.id}).then(function (felvett){
+            var subjects_ids = [];
+            for(var i in felvett){
+                subjects_ids.push(felvett[i].subject_id);
+            }
+            req.app.models.subject.find().then(function(subjects) {
+               for(var i in subjects){
+                   var s = subjects[i];
+                   if(_.indexOf(subjects_ids, s.id) != -1){
+                       _.extend(s, {picked : true});
+                   }
+               }
+               debug('moddolt',subjects);
+               res.render('subjects/list', {
+                    errors: decorateSubjects(subjects, false),
+                    messages: req.flash('info'),
+                });
+            });
+        });
+    }
 });
 router.get('/new', function (req, res) {
     var validationErrors = (req.flash('validationErrors') || [{}]).pop();
@@ -77,7 +101,8 @@ router.post('/new', function (req, res) {
             status: req.body.status,
             subjectName: req.body.subjectName,
             room: req.body.room,
-            description: req.body.description
+            description: req.body.description,
+            user : req.user
         })
         .then(function (subject) {
             req.flash('info', 'Tantárgy sikeresen felvéve!');
@@ -96,7 +121,38 @@ router.get('/delete/:id', ensureAuthenticated, function(req, res) {
     })
     .then(function() {
         req.flash('info', 'Tantárgy sikeresen törölve!');
-        res.redirect('list');
+        res.redirect('/subjects/list');
+    })
+    .catch(function (err) {
+        console.log(err);
+    });
+});
+
+router.get('/add/:id', ensureAuthenticated, function(req, res) {
+    console.log('add ' + req.params.id + ' ' + req.user.id);
+    
+    req.app.models.csat.create({
+        student_id : req.user.id,
+        subject_id : req.params.id
+    })
+    .then(function(csat) {
+        req.flash('info', 'Tantárgy sikeresen felvéve!');
+        res.redirect('/subjects/list');
+    })
+    .catch(function (err) {
+        console.log(err);
+    });
+});
+
+router.get('/remove/:id', ensureAuthenticated, function(req, res) {
+    console.log('remove ' + req.params.id + ' ' + req.user.id);
+    
+    req.app.models.csat.destroy({
+        id: req.params.id
+    })
+    .then(function(csat) {
+        req.flash('info', 'Tantárgy sikeresen leadva!');
+        res.redirect('/subjects/list');
     })
     .catch(function (err) {
         console.log(err);
@@ -138,16 +194,12 @@ router.post('/modify/:id', function(req, res) {
                 subjectName: req.body.subjectName, 
                 room: req.body.room,
                 description: req.body.description,
-                status: req.body.status
+                status: req.body.status,
+                user : req.user.mtra
             })
         .then(function() {
             req.flash('info', 'Tantárgy sikeresen törölve!');
-            //debug('res',res);
-            //console.log(Object.keys(res));
-            debug('output',res.output);
-            debug('domain',res.domain);
-            debug('connection',res.connection);
-            res.redirect('list');
+            res.redirect('/subjects/list');
         })
         .catch(function (err) {
             console.log(err);

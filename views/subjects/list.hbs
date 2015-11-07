@@ -25,9 +25,16 @@
             <td><span class="label label-{{statusClass}}">{{statusText}}</span></td>
             <td>{{room}}</td>
             <td>{{description}}</td>
+            <td>{{user}}</td>
+            <td align="right">
+                {{#if picked}}
+                    <a class="btn btn-xs btn-danger" data-toggle="tooltip" data-placement="top" title="Törlés" href='remove/{{id}}'>Leadás</a>
+                {{else}}
+                    <a class="btn btn-xs btn-primary" data-toggle="tooltip" data-placement="top" title="Törlés" href='add/{{id}}'>Felvesz</a>
+                {{/if}}
+                
+            </td>
         </tr>
         {{/each}}
     </tbody>
 </table>
-
-<p><a href="/subjects/new" class="btn btn-default">Új tárgy felvitele</a></p>

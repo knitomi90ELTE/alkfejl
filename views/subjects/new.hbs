@@ -25,7 +25,6 @@
             <label for="leiras" class="col-lg-2 control-label">Leírás</label>
             <div class="col-lg-10">
                 <input class="form-control" id="description" name="description">{{data.description}}</input>
-                <!--span class="help-block">Tárgy rövid leírása</span-->
                 {{#if validationErrors.description}}
                     <span class="help-block">{{validationErrors.description.msg}}</span>
                 {{/if}}
@@ -39,7 +38,6 @@
             <label for="room" class="col-lg-2 control-label">Terem</label>
             <div class="col-lg-10">
                 <input class="form-control" id="room" name="room">{{data.room}}</input>
-                <!--span class="help-block">Terem</span-->
                 {{#if validationErrors.room}}
                     <span class="help-block">{{validationErrors.room.msg}}</span>
                 {{/if}}
@@ -53,13 +51,10 @@
         ">
             <label for="status" class="col-lg-2 control-label">Terem</label>
             <div class="col-lg-10">
-                <!--textarea class="form-control" rows="2" id="status" name="status">{{data.status}}</textarea-->
                 <select class="form-control" id="status" name="status">
-                    <option name="available" value="available">Elérhető</option>
-                    <option name="inavailable" value="inavailable">Nem elérhető</option>
-                    <option name="passive" value="passive">Nincs meghírdetve</option>
+                    <option name="available" value="available">Aktív</option>
+                    <option name="inavailable" value="inavailable">Passzív</option>
                 </select>
-                <!--span class="help-block">Terem</span-->
                 {{#if validationErrors.status}}
                     <span class="help-block">{{validationErrors.status.msg}}</span>
                 {{/if}}

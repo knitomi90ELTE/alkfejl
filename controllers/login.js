@@ -53,7 +53,7 @@ router.get('/signup', function (req, res) {
 });
 
 router.post('/signup', passport.authenticate('local-signup', {
-    successRedirect: '/',
+    successRedirect: '/login',
     failureRedirect: '/login/signup',
     failureFlash: true,
     badRequestMessage: 'Hiányzó adatok'

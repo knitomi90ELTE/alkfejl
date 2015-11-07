@@ -2,64 +2,92 @@
   "data": {
     "user": [
       {
-        "surname": "Hallgató",
-        "forename": "Tamás",
-        "mtra": "QWEASD",
-        "password": "$2a$10$G8xsIdYqZGz5IgD6BmtEE.rnMmlW3TVmhCR.H7VU1FU9TZrKeWsbO",
-        "role": "student",
-        "createdAt": "2015-11-04T17:08:50.693Z",
-        "updatedAt": "2015-11-04T17:08:50.693Z",
-        "id": 1
-      },
-      {
-        "surname": "Tanár",
-        "forename": "Tamás",
-        "mtra": "ASDQWE",
-        "password": "$2a$10$C1hQLEp2QYL0SjEce64AbO9sK61XtLFC9z8f2adoHT59wepJOAVsO",
-        "role": "teacher",
-        "createdAt": "2015-11-04T17:36:31.928Z",
-        "updatedAt": "2015-11-04T17:36:31.928Z",
-        "id": 2
-      },
-      {
-        "surname": "Hallgató2",
-        "forename": "Tamás",
-        "mtra": "H2TAMA",
-        "password": "$2a$10$pzjAzJ.Rj6emRZXCQ2rnI.asNtRnDR4Ed0ZiyfY7cja0O5HydzFzW",
-        "role": "student",
-        "createdAt": "2015-11-04T18:04:47.172Z",
-        "updatedAt": "2015-11-04T18:04:47.172Z",
-        "id": 3
-      },
-      {
         "surname": "Tanár",
         "forename": "Tamás",
         "mtra": "TANAR1",
-        "password": "$2a$10$X5LzP4FLxB/2k.U5XJE6e.qK8eftriTeStdyHzzSmERKJ1NXfIMnO",
+        "password": "$2a$10$Ov.589UtM7fy.6jJAQIPSOsb8194kgh4JKex7Kb3YxoTcsTXojMMi",
         "role": "teacher",
-        "createdAt": "2015-11-05T16:57:03.066Z",
-        "updatedAt": "2015-11-05T16:57:03.066Z",
-        "id": 4
+        "createdAt": "2015-11-07T19:30:08.559Z",
+        "updatedAt": "2015-11-07T19:32:21.169Z",
+        "id": 1
+      },
+      {
+        "surname": "Hallgató",
+        "forename": "Tamás",
+        "mtra": "HALLGA1",
+        "password": "$2a$10$ENJ23czp/ZJ/hLtGkRiWHOOwylVmQzB.jXgGUqbiZfvGhk.tKPg12",
+        "role": "student",
+        "createdAt": "2015-11-07T19:33:05.855Z",
+        "updatedAt": "2015-11-07T19:33:05.855Z",
+        "id": 2
       }
     ],
     "subject": [
       {
         "status": "available",
-        "subjectName": "Analízis 5",
+        "subjectName": "Tárgy 1",
         "room": "kórterem",
-        "description": "Leírás analízis",
-        "createdAt": "2015-11-07T16:51:04.863Z",
-        "updatedAt": "2015-11-07T17:37:09.655Z",
-        "id": 9
+        "description": "Leírás asd",
+        "user": 1,
+        "createdAt": "2015-11-07T19:30:19.096Z",
+        "updatedAt": "2015-11-07T19:30:19.096Z",
+        "id": 1
       },
       {
         "status": "available",
-        "subjectName": "Matematika 5",
+        "subjectName": "Tárgy 2",
         "room": "8",
         "description": "Szar.",
-        "createdAt": "2015-11-07T17:42:13.271Z",
-        "updatedAt": "2015-11-07T17:48:17.214Z",
-        "id": 10
+        "user": 1,
+        "createdAt": "2015-11-07T19:30:26.444Z",
+        "updatedAt": "2015-11-07T19:30:26.444Z",
+        "id": 2
+      },
+      {
+        "status": "available",
+        "subjectName": "Analízis 2",
+        "room": "asd",
+        "description": "asdf",
+        "user": 1,
+        "createdAt": "2015-11-07T19:30:34.582Z",
+        "updatedAt": "2015-11-07T19:30:34.582Z",
+        "id": 3
+      },
+      {
+        "status": "available",
+        "subjectName": "Analízis 3",
+        "room": "asd",
+        "description": "Leírás analízis",
+        "user": 1,
+        "createdAt": "2015-11-07T19:31:20.230Z",
+        "updatedAt": "2015-11-07T19:32:21.182Z",
+        "id": 4
+      },
+      {
+        "status": "available",
+        "subjectName": "Analízis 1",
+        "room": "kórterem",
+        "description": "Leírás analízis 1",
+        "user": 1,
+        "createdAt": "2015-11-07T19:32:39.109Z",
+        "updatedAt": "2015-11-07T19:32:39.109Z",
+        "id": 5
+      }
+    ],
+    "csat": [
+      {
+        "student_id": 2,
+        "subject_id": 2,
+        "createdAt": "2015-11-07T19:52:31.920Z",
+        "updatedAt": "2015-11-07T19:52:31.920Z",
+        "id": 2
+      },
+      {
+        "student_id": 2,
+        "subject_id": 1,
+        "createdAt": "2015-11-07T21:01:36.838Z",
+        "updatedAt": "2015-11-07T21:01:36.838Z",
+        "id": 3
       }
     ]
   },
@@ -107,8 +135,7 @@
         "type": "string",
         "enum": [
           "available",
-          "inavailable",
-          "passive"
+          "inavailable"
         ],
         "defaultsTo": "passive"
       },
@@ -136,14 +163,43 @@
       "updatedAt": {
         "type": "datetime"
       }
+    },
+    "csat": {
+      "student_id": {
+        "type": "integer",
+        "model": "user",
+        "foreignKey": true,
+        "alias": "student_id"
+      },
+      "subject_id": {
+        "type": "integer",
+        "model": "subject",
+        "foreignKey": true,
+        "alias": "subject_id"
+      },
+      "id": {
+        "type": "integer",
+        "autoIncrement": true,
+        "primaryKey": true,
+        "unique": true
+      },
+      "createdAt": {
+        "type": "datetime"
+      },
+      "updatedAt": {
+        "type": "datetime"
+      }
     }
   },
   "counters": {
     "user": {
-      "id": 4
+      "id": 2
     },
     "subject": {
-      "id": 10
+      "id": 5
+    },
+    "csat": {
+      "id": 3
     }
   }
 }
