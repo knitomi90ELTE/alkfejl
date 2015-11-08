@@ -26,6 +26,7 @@ Megvalósítani egy tantárgyak felvételére, kezelésére szolgáló webes tec
 - **vendég**: nem rendezik jogosultsággal az oldal tartalmának megtekintéséhez, két dolgot tehet: bejelentkezik vagy regisztrál
 - **hallgató**: megtekintheti a rendszerben levő tantárgyakat és azokat felveheti illetve leadhatja
 - **tanár**: létrehozhat, törölhet és módosíthat tantárgyakat
+
 ## 2. Tervezés
 ## 3. Implementáció
 ## 4. Tesztelés
