@@ -9,6 +9,11 @@
     <h1>Elérhető tárgyak</h1>
 </div>
 
+<div align=right>
+    <p class="lead">Belépve mint</p>
+    {{user.surname}} {{user.forename}} - {{user.mtra}}
+</div>
+
 <table class="table table-striped table-hover ">
     <thead>
         <tr>
@@ -17,6 +22,7 @@
             <th>leírás</th>
             <th>Státusz</th>
             <th>Létrehozta</th>
+            <th></th><!-- Ez csak a design miatt van itt -->
         </tr>   
     </thead>
     <tbody>
@@ -26,12 +32,12 @@
             <td><span class="label label-{{statusClass}}">{{statusText}}</span></td>
             <td>{{room}}</td>
             <td>{{description}}</td>
-            <td>{{user}}</td>
-            <td align="right">
+            <td>{{creator}}</td>
+            <td>
                 {{#if picked}}
-                    <a class="btn btn-xs btn-danger {{#unless status}}disabled{{/unless }}" data-toggle="tooltip" data-placement="top" title="Törlés" href='remove/{{id}}'>Leadás</a>
+                    <a class="btn btn-xs btn-danger {{#unless status}}disabled{{/unless }}" data-toggle="tooltip" data-placement="top" title="Leadás" href='remove/{{id}}'>Leadás</a>
                 {{else}}
-                    <a class="btn btn-xs btn-primary {{#unless status}}disabled{{/unless }}" data-toggle="tooltip" data-placement="top" title="Törlés" href='add/{{id}}'>Felvesz</a>
+                    <a class="btn btn-xs btn-primary {{#unless status}}disabled{{/unless }}" data-toggle="tooltip" data-placement="top" title="Felvesz" href='add/{{id}}'>Felvesz</a>
                 {{/if}}
                 
             </td>

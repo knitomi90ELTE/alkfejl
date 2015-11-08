@@ -23,6 +23,7 @@ orm.loadCollection(Waterline.Collection.extend(userCollection));
 orm.loadCollection(Waterline.Collection.extend(subjectCollection));
 orm.loadCollection(Waterline.Collection.extend(csatCollection));
 
+var indexController = require('./controllers/index');
 var loginController = require('./controllers/login');
 var subjectController = require('./controllers/subject');
 var app = express();
@@ -114,7 +115,8 @@ function ensureAuthenticated(req, res, next) {
 }
 
 //endpoints
-app.use('/', loginController);
+app.use('/', indexController);
+//app.use('/', loginController);
 app.use('/subjects', ensureAuthenticated, subjectController);
 app.use('/login', loginController);
 

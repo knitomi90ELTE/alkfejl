@@ -1,9 +1,7 @@
 // controllers/subject.js
 var express = require('express');
 var router = express.Router();
-
 var _ = require('underscore');
-
 var util = require('util');
 function debug(title, data){
     console.log(title + ": " + util.inspect(data, false, null));
@@ -45,29 +43,29 @@ function getUserById(req, id, done){
 }
 
 router.get('/list', function (req, res) {
-    //'subjects/list'
-    //debug('/list', req.user);
     var teacher = (req.user.role == "teacher");
-    console.log('I am a teacher: ' + teacher);
     if(teacher){
         req.app.models.subject.find()
         .then(function (subjects) {
-            for(var i in subjects){
-                var s = subjects[i];
-                getUserById(req, s.user, function(err, user){
-                    if(err){console.log(err)};
-                    _.extend(s, {creator : user.surname + ' ' + user.forename});
-                    console.log(user.surname + ' ' + user.forename);
-                })
+            var count = subjects.length;
+            function _for(i){
+            	if(i == count){
+            		res.render('subjects/list_teacher', {
+            			errors: decorateSubjects(subjects, teacher),
+            			messages: req.flash('info'),
+            			user : req.user
+            		});
+            	}else{
+                	var s = subjects[i];
+                	getUserById(req, s.user, function(err, user){
+                		if(err){console.log(err)};
+                		_.extend(s, {creator : user.surname + ' ' + user.forename});
+                		i++;
+                		_for(i, subjects);
+                	});
+            	}
             }
-            setTimeout(function(){
-                debug('subjects',subjects);
-                res.render('subjects/list_teacher', {
-                    errors: decorateSubjects(subjects, teacher),
-                    messages: req.flash('info'),
-                });
-            },1000)
-            
+            _for(0);
         })
         .catch(function (err) {
             console.log(err);
@@ -81,17 +79,28 @@ router.get('/list', function (req, res) {
             }
             req.app.models.subject.find()
             .then(function(subjects) {
-               for(var i in subjects){
-                   var s = subjects[i];
-                   if(_.indexOf(subjects_ids, s.id) != -1){
-                       _.extend(s, {picked : true});
-                   }
-               }
-               //debug('moddolt',subjects);
-               res.render('subjects/list', {
-                    errors: decorateSubjects(subjects, false),
-                    messages: req.flash('info'),
-                });
+                var count = subjects.length;
+                function _for(i){
+                	if(i == count){
+                		res.render('subjects/list', {
+                			errors: decorateSubjects(subjects, teacher),
+                			messages: req.flash('info'),
+                			user : req.user
+                		});
+                	}else{
+                    	var s = subjects[i];
+                    	if(_.indexOf(subjects_ids, s.id) != -1){
+                            _.extend(s, {picked : true});
+                        }
+                    	getUserById(req, s.user, function(err, user){
+                    		if(err){console.log(err)};
+                    		_.extend(s, {creator : user.surname + ' ' + user.forename});
+                    		i++;
+                    		_for(i, subjects);
+                    	});
+                	}
+                }
+                _for(0);
             })
             .catch(function (err) {
                 console.log(err);
@@ -102,6 +111,7 @@ router.get('/list', function (req, res) {
         });
     }
 });
+
 router.get('/new', function (req, res) {
     var validationErrors = (req.flash('validationErrors') || [{}]).pop();
     var data = (req.flash('data') || [{}]).pop();
@@ -127,7 +137,6 @@ router.post('/new', function (req, res) {
         req.flash('data', req.body);
         res.redirect('new');
     } else {
-        debug('req.user',req.user);
         req.app.models.subject.create({
             status: req.body.status,
             subjectName: req.body.subjectName,
@@ -160,8 +169,6 @@ router.get('/delete/:id', ensureAuthenticated, function(req, res) {
 });
 
 router.get('/add/:id', ensureAuthenticated, function(req, res) {
-    console.log('add ' + req.params.id + ' ' + req.user.id);
-    
     req.app.models.csat.create({
         student_id : req.user.id,
         subject_id : req.params.id
@@ -176,10 +183,8 @@ router.get('/add/:id', ensureAuthenticated, function(req, res) {
 });
 
 router.get('/remove/:id', ensureAuthenticated, function(req, res) {
-    console.log('remove ' + req.params.id + ' ' + req.user.id);
-    
     req.app.models.csat.destroy({
-        id: req.params.id
+        subject_id: req.params.id
     })
     .then(function(csat) {
         req.flash('info', 'Tantárgy sikeresen leadva!');
@@ -194,7 +199,6 @@ router.get('/modify/:id', ensureAuthenticated, function(req, res) {
     var validationErrors = (req.flash('validationErrors') || [{}]).pop();
     var mod_id = (req.flash('mod_id') || [{}]).pop();
     var finalId = (mod_id) ? mod_id : req.params.id;
-    
     req.app.models.subject.findOne({
         id: finalId
     }).then(function(subject) {
@@ -202,6 +206,9 @@ router.get('/modify/:id', ensureAuthenticated, function(req, res) {
             subject: subject, 
             validationErrors: validationErrors,
         });
+    })
+    .catch(function (err) {
+        console.log(err);
     });
 });
 
