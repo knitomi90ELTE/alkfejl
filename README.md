@@ -20,7 +20,6 @@ Megvalósítani egy tantárgyak felvételére, kezelésére szolgáló webes tec
 - Jelszavak tárolása, biztonság
 - A weboldal könnyen bővíthető
 - Teljesítmény, rendelkezésre állás
-<<<<<<< HEAD
 
 ### Használatieset-modell
 #### Szerepkörök
@@ -28,22 +27,56 @@ Megvalósítani egy tantárgyak felvételére, kezelésére szolgáló webes tec
 - **hallgató**: megtekintheti a rendszerben levő tantárgyakat és azokat felveheti illetve leadhatja
 - **tanár**: létrehozhat, törölhet és módosíthat tantárgyakat
 
+### Folyamat pontos menete: Regisztráció
+
+
 ![Használatieset-modell](img/usecase.png)
 
 ## 2. Tervezés
 
- - Architektúra terv
+### - Architektúra terv
 komponensdiagram
-Oldaltérkép
-Végpontok
- - Felhasználóifelület-modell
+####Oldaltérkép
+Publikus:
+- Bejelentkezés
+- Regisztrálás
+Regisztrált felhasználók számára:
+- Bejelentkezés
+- Kijelentkezés
+- Tárgyak listázása
+- Hallgatók számára:
+  - Tárgy felvétele
+  - Tárgy leadása
+- Tanárok számára
+  - Tárgy létrehozása
+  - Tárgy módosítása
+  - Tárgy törlése
+
+####Végpontok
+- GET /: login oldal vagy átirányítás a listanézetre
+- POST /: bejelentkezési adatok elküldése
+- GET /login: login oldal vagy átirányítás a listanézetre
+- POST /login: bejelentkezési adatok elküldése
+- GET /signup: regisztrációs oldal
+- POST /signup: regisztrációs adatok elküldése
+- GET /logout: kijelentkezés
+- GET /list: tárgyak listázása
+- GET /new: új tantárgy hozzáadása oldal
+- POST /new: új tantárgy létrehozása
+
+- GET /modify/:id : tantárgy módosítása
+- POST /modify/:id : tantárgy módosított adatainak elküldése
+- GET /delete/:id : létrehozott tantárgy törlése
+- GET /remove/:id : törlés a felvett tárgyak közül
+
+### - Felhasználóifelület-modell
 Oldalvázlatok
 Designterv (nem kell, elég a végső megvalósítás kinézete)
- - Osztálymodell
+### - Osztálymodell
 Adatmodell
 Adatbázisterv
 Állapotdiagram
- - Dinamikus működés
+### - Dinamikus működés
 Szekvenciadiagram
 
 ## 3. Implementáció
