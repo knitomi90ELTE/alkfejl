@@ -32,13 +32,12 @@ Megvalósítani egy tantárgyak felvételére, kezelésére szolgáló webes tec
 ![Regisztráció](img/signup.png)
 
 ## 2. Tervezés
-
 ### - Architektúra terv
-komponensdiagram
 ####Oldaltérkép
 Publikus:
 - Bejelentkezés
 - Regisztrálás
+
 Regisztrált felhasználók számára:
 - Bejelentkezés
 - Kijelentkezés
@@ -73,7 +72,7 @@ Bejelentkezés
 ![Bejelentkezés](img/login_wire.png)
 
 Listanézet
-![Listanézet](img/list.png)
+![Listanézet](img/lista_wire.png)
 
 ### - Osztálymodell
 Adatbázis táblák leírása
@@ -119,14 +118,17 @@ Adatbázisterv
 Cloud9 webes fejlesztői környezet
 Közzététel Herokun
 ### Könyvtárszerkezet
-./img: tartalmazza a dokumentációhoz szükséges képeket
-./models: adatmodelleket tartalmazza (user.js, subject.js, csat.js)
-./controllers: végpontok vezérlői
-./config: konfigurációs beállítások (waterline.js)
-./views: a megjelenítéshez szükséges .hbs kiterjesztésű fájlok
-./views/login: bejelentkezési oldalak
-./views/subjects: tantárgyakkal kapcsolatos oldalak
-./test: a teszteléshez szükséges fájlok
+- ./img: tartalmazza a dokumentációhoz szükséges képeket
+- ./models: adatmodelleket tartalmazza (user.js, subject.js, csat.js)
+- ./controllers: végpontok vezérlői
+- ./config: konfigurációs beállítások (waterline.js)
+- ./views: a megjelenítéshez szükséges .hbs kiterjesztésű fájlok
+- ./views/login: bejelentkezési oldalak
+- ./views/subjects: tantárgyakkal kapcsolatos oldalak
+- ./test: a teszteléshez szükséges fájlok
+- server.js: az alkalmazás core-ja
+- package.json: Node.js modulok függőségei, tesztek
+
 ## 4. Tesztelés
 ###Tesztelési környezet
 A user model került tesztelésre egységteszt segítségével, a következő funkciók lettek tesztelve:
