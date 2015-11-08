@@ -92,6 +92,16 @@
         "createdAt": "2015-11-08T12:36:17.700Z",
         "updatedAt": "2015-11-08T12:36:17.700Z",
         "id": 5
+      },
+      {
+        "status": true,
+        "subjectName": "Teszt tárgy",
+        "room": "Teszt tárgy terem",
+        "description": "Teszt tárgy leírás",
+        "user": 5,
+        "createdAt": "2015-11-08T15:29:55.889Z",
+        "updatedAt": "2015-11-08T15:29:55.889Z",
+        "id": 6
       }
     ],
     "csat": []
@@ -197,7 +207,7 @@
       "id": 5
     },
     "subject": {
-      "id": 5
+      "id": 6
     },
     "csat": {
       "id": 14

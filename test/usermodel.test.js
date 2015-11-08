@@ -90,7 +90,7 @@ describe('UserModel', function () {
     });
     
     
-    it('should throw error for invalid data: avatar', function () {
+    it('should throw error for invalid data: role', function () {
         var userData = getUserData();
     
         userData.role = 'rossz';
