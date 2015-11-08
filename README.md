@@ -158,7 +158,6 @@ Kimenet:
 Az alkalmazás használatához bármilyen böngésző megfelel.
 A szervernek rendelkeznie kell Node.js-el.
 Az alkalmazás jelenleg megtalálható itt:
-https://ktalkfejl.herokuapp.com/
 [Beadandó](https://ktalkfejl.herokuapp.com/)
 ### Telepítés lépései:
 - Forrás beszerzése:
