@@ -1,7 +1,5 @@
 # Dokumentáció
-======
 ## 1. Követelményanalízis
-=====
 ### - Követelmények összegyűjtése: 
 a nyújtandó szolgáltatások ismertetése rövid, szöveges leírásként, sokszor felsorolásként jelenik meg.
 Funkcionális elvárások
@@ -15,10 +13,6 @@ a szerepkörök és az elérhető funkiók kapcsolatát jelenítik meg, ha kell,
 Folyamatok pontos menete: legalább 1 folyamat kifejtése.
 
 ## 2. Tervezés
-=====
 ## 3. Implementáció
-=====
 ## 4. Tesztelés
-=====
 ## 5. Felhasználói dokumentáció
-=====
