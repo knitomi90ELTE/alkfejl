@@ -1,23 +1,35 @@
 # Dokumentáció
-======
-
 ## 1. Követelményanalízis
-=====
+### Funkcionális követelmények
 
-### - Követelmények összegyűjtése: a nyújtandó szolgáltatások ismertetése rövid, szöveges leírásként, sokszor felsorolásként jelenik meg.
-Funkcionális elvárások
-Nem funkcionális követelmények
-### - Szakterületi fogalomjegyzék: ha vannak speciális fogalmak, akkor ezeket itt lehet összegyűjteni és magyarázni.
-Használatieset-modell
-Szerepkörök: lista rövid leírással
-### - Használati eset diagramok: a szerepkörök és az elérhető funkiók kapcsolatát jelenítik meg, ha kell, akkor esetenként rövid magyarázó szöveggel.
-Folyamatok pontos menete: legalább 1 folyamat kifejtése.
+Megvalósítani egy tantárgyak felvételére, kezelésére szolgáló webes technológiákkal fejlesztett alkalmazást. Elvárt követelmények aminek tartalmaznia kell:
+
+- legalább két modellt, egy-sok kapcsolatban
+- legalább 1 űrlapot
+- legalább 1 listázó oldalt
+- legyen lehetőség új felvételére
+- legyen lehetőség meglévő szerkesztésére
+- legyen lehetőség meglévő törlésére
+- legyenek benne csak hitelesítés után elérhető funkciók
+- perzisztálás fájlba történjen
+- közzététel Herokun
+
+### Nem funkcionális követelmények
+
+- Felhaszánálóbarát, ergonomikus elrendezés és kinézet
+- Jelszavak tárolása, biztonság
+- A weboldal könnyen bővíthető
+- Teljesítmény, rendelkezésre állás
+
+### Használatieset-modell
+#### Szerepkörök
+- **vendég**: nem rendezik jogosultsággal az oldal tartalmának megtekintéséhez, két dolgot tehet: bejelentkezik vagy regisztrál
+- **hallgató**: megtekintheti a rendszerben levő tantárgyakat és azokat felveheti illetve leadhatja
+- **tanár**: létrehozhat, törölhet és módosíthat tantárgyakat
+
+![Használatieset-modell](img/usecase.png)
 
 ## 2. Tervezés
-=====
 ## 3. Implementáció
-=====
 ## 4. Tesztelés
-=====
 ## 5. Felhasználói dokumentáció
-=====
