@@ -31,6 +31,21 @@ Megvalósítani egy tantárgyak felvételére, kezelésére szolgáló webes tec
 ![Használatieset-modell](img/usecase.png)
 
 ## 2. Tervezés
+
+ - Architektúra terv
+komponensdiagram
+Oldaltérkép
+Végpontok
+ - Felhasználóifelület-modell
+Oldalvázlatok
+Designterv (nem kell, elég a végső megvalósítás kinézete)
+ - Osztálymodell
+Adatmodell
+Adatbázisterv
+Állapotdiagram
+ - Dinamikus működés
+Szekvenciadiagram
+
 ## 3. Implementáció
 ## 4. Tesztelés
 ## 5. Felhasználói dokumentáció
