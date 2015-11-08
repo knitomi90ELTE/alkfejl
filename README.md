@@ -20,6 +20,7 @@ Megvalósítani egy tantárgyak felvételére, kezelésére szolgáló webes tec
 - Jelszavak tárolása, biztonság
 - A weboldal könnyen bővíthető
 - Teljesítmény, rendelkezésre állás
+<<<<<<< HEAD
 
 ### Használatieset-modell
 #### Szerepkörök
